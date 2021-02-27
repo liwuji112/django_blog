@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    文章详情
+{% endblock title %}
+{% block content %}
+    <!-- 文章详情 -->
+    <div class="container">
+        <div class="row">
+             <!-- 标题及作者 -->
+            <h1 class="col-12 mt-4 mb-4">{{ article.title }}</h1>
+            <div class="col-12">作者：{{ article.author }}
+                <span style="display: inline-block; margin-left: 15px">
+                    浏览:{{ article.total_views }}
+                </span>
+            </div>
+            <div class="col-12 alert alert-success">
+                {% if user == article.author %}
+                    <a href="{% url "article:article_delete" article.id %}">删除文章</a>
+                    <a href="{% url "article:article_update" article.id %}">更改文章</a>
+                {% else %}
+                    <a class="btn-link disabled" href="#">删除文章</a>&nbsp;&nbsp;
+                    <a class="btn-link disabled" href="#">更改文章</a>
+                {% endif %}
+            </div>
+        </div>
+        <!-- 文章正文 -->
+        <div class="col-12">
+            <p>{{ article.body|safe }}</p>
+        </div>
+    </div>
+{% endblock content %}
